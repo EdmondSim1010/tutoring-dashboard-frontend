@@ -1,7 +1,8 @@
 // src/components/StudentList.tsx
 import React from 'react';
 // MUI Imports
-import { Card, CardContent, Typography, Grid, Box, LinearProgress } from '@mui/material';
+import { Card, CardContent, Typography, Box, LinearProgress } from '@mui/material';
+import { Grid } from '@mui/material';
 
 export interface IStudent {
   id: number;
