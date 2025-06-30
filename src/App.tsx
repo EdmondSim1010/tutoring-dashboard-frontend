@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import StudentList, { IStudent } from './components/StudentList';
 import StudentDetail from './components/StudentDetail';
-import './App.css';
+// MUI Imports
+import { Container, Typography, CssBaseline, CircularProgress, Alert } from '@mui/material';
 
 function App() {
   const [students, setStudents] = useState<IStudent[]>([]);
@@ -11,6 +12,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // ... your fetch logic remains the same
     const fetchStudents = async () => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL;
@@ -29,22 +31,27 @@ function App() {
         setLoading(false);
       }
     };
-
     fetchStudents();
   }, []);
 
-  if (loading) return <div>Loading dashboard...</div>;
-  if (error) return <div>Error: {error}. Is the backend running and the API URL correct?</div>;
+  // A much nicer loading and error state!
+  if (loading) return <CircularProgress sx={{ display: 'block', margin: '100px auto' }} />;
+  if (error) return <Alert severity="error" sx={{ margin: '20px' }}>Error: {error}</Alert>;
 
   return (
-    <div className="App">
-      <h1>Tutor Dashboard</h1>
-      {selectedStudent ? (
-        <StudentDetail student={selectedStudent} onBack={() => setSelectedStudent(null)} />
-      ) : (
-        <StudentList students={students} onSelectStudent={setSelectedStudent} />
-      )}
-    </div>
+    <>
+      <CssBaseline /> {/* A nice CSS reset */}
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> {/* mt = margin-top */}
+        <Typography variant="h4" component="h1" gutterBottom>
+          Smart Tutor Dashboard
+        </Typography>
+        {selectedStudent ? (
+          <StudentDetail student={selectedStudent} onBack={() => setSelectedStudent(null)} />
+        ) : (
+          <StudentList students={students} onSelectStudent={setSelectedStudent} />
+        )}
+      </Container>
+    </>
   );
 }
 
