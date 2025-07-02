@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Smart Tutoring Dashboard (Frontend/Backend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the repository for the frontend/backend of a "Smart" Tutoring Dashboard designed to help tutors track student progress in Math & Physics.
 
-## Available Scripts
+### Live Demo
 
-In the project directory, you can run:
+https://tutoring-dashboard-frontend.vercel.app/
 
-### `npm start`
+### Features (MVP)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+*   **Tutor Dashboard:** View a list of all students and their overall progress per topic.
+*   **Detailed Student View:** Click on a student to see a detailed chart of their performance.
+*   **PDF Quiz Generator:** Dynamically generate a PDF worksheet for any student in any of their assigned topics.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Tech Stack
 
-### `npm test`
+*   **Frontend:** React, TypeScript, Recharts (for charts), jsPDF
+*   **Backend:** Python, Flask
+*   **Deployment:** Frontend on Vercel, Backend on Render
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Screenshots
+<img width="1300" alt="Screenshot 2025-07-01 at 11 25 08 am" src="https://github.com/user-attachments/assets/6b79f27d-3bd9-4351-a619-cbdea67add52" />
+<img width="989" alt="Screenshot 2025-07-01 at 11 25 03 am" src="https://github.com/user-attachments/assets/ac80bf69-6c0d-41aa-b311-68fc2ca6a7e3" />
 
-### `npm run build`
+### Local Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  `git clone <repo-url>`
+2.  `cd <repo-folder>`
+3.  `npm install`
+4.  Create a `.env` file and add `REACT_APP_API_URL=http://localhost:5001`
+5.  `npm start`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Next Steps
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The next priorities are:
+*   **Implement User Authentication (JWT)** to create secure tutor and student accounts.
+*    **Migrate to a real database** (PostgreSQL or MongoDB) to persist data properly.
+*   **Build out full CRUD** functionality for tutors to add/edit students and questions via the UI.
+*   **Implement "Smart" Quiz Logic** on the backend to assign questions based on student weak spots.
+*  **Create a Student View** where students can log in and take quizzes online.
