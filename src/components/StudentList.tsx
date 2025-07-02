@@ -1,9 +1,7 @@
 // src/components/StudentList.tsx
 import React from 'react';
-// MUI Imports
-import { Card, CardContent, Typography, Box, LinearProgress } from '@mui/material';
-import { Grid } from '@mui/material';
 
+// Define the type for a student object
 export interface IStudent {
   id: number;
   name: string;
@@ -19,31 +17,24 @@ interface StudentListProps {
 const StudentList: React.FC<StudentListProps> = ({ students, onSelectStudent }) => {
   return (
     <div>
-      <Typography variant="h5" component="h2" sx={{ mb: 2 }}>Students</Typography>
-      <Grid container spacing={3}>
+      <h2>Students</h2>
+      <div className="student-list">
         {students.map(student => (
-          <Grid item xs={12} sm={6} md={4} key={student.id}>
-            <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 6 } }} onClick={() => onSelectStudent(student)}>
-              <CardContent>
-                <Typography variant="h6">{student.name}</Typography>
-                {Object.entries(student.progress).map(([topic, percent]) => (
-                  <Box key={topic} sx={{ mt: 2 }}>
-                    <Typography variant="body2">{topic}</Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <Box sx={{ width: '100%', mr: 1 }}>
-                        <LinearProgress variant="determinate" value={percent} />
-                      </Box>
-                      <Box sx={{ minWidth: 35 }}>
-                        <Typography variant="body2" color="text.secondary">{`${percent}%`}</Typography>
-                      </Box>
-                    </Box>
-                  </Box>
-                ))}
-              </CardContent>
-            </Card>
-          </Grid>
+          <div key={student.id} className="student-card" onClick={() => onSelectStudent(student)}>
+            <h3>{student.name}</h3>
+            {Object.entries(student.progress).map(([topic, percent]) => (
+              <div key={topic}>
+                <p>{topic}</p>
+                <div className="progress-bar-container">
+                  <div className="progress-bar" style={{ width: `${percent}%` }}>
+                    {percent}%
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ))}
-      </Grid>
+      </div>
     </div>
   );
 };

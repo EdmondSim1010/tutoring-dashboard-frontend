@@ -3,11 +3,11 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { jsPDF } from 'jspdf';
 import { IStudent } from './StudentList';
-// MUI Imports
-import { Button, Typography, Box, Paper } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
+interface StudentDetailProps {
+  student: IStudent;
+  onBack: () => void;
+}
 
 const generateQuizPDF = async (studentName: string, topic: string) => {
     alert(`Generating quiz for ${topic}...`);
@@ -42,21 +42,19 @@ const generateQuizPDF = async (studentName: string, topic: string) => {
     }
 }
 
-const StudentDetail: React.FC<any> = ({ student, onBack }) => {
+const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
   const chartData = Object.entries(student.progress).map(([topic, accuracy]) => ({
     name: topic,
     accuracy,
   }));
 
   return (
-    <Paper sx={{ p: 3 }}> {/* p = padding */}
-      <Button startIcon={<ArrowBackIcon />} onClick={onBack} sx={{ mb: 2 }}>
-        Back to All Students
-      </Button>
-      <Typography variant="h5" component="h2">{student.name}'s Dashboard</Typography>
+    <div>
+      <button onClick={onBack}>← Back to All Students</button>
+      <h2>{student.name}'s Dashboard</h2>
 
-      <Typography variant="h6" sx={{ mt: 4 }}>Progress by Topic</Typography>
-      <Box sx={{ width: '100%', height: 300, mt: 2 }}>
+      <h3>Progress by Topic</h3>
+      <div style={{ width: '100%', height: 300 }}>
         <ResponsiveContainer>
           <BarChart data={chartData}>
             <XAxis dataKey="name" />
@@ -66,22 +64,15 @@ const StudentDetail: React.FC<any> = ({ student, onBack }) => {
             <Bar dataKey="accuracy" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
-      </Box>
+      </div>
 
-      <Typography variant="h6" sx={{ mt: 4 }}>Generate Weekly Quiz</Typography>
-      <Box sx={{ mt: 2, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-        {student.topics.map((topic: string) => (
-          <Button
-            key={topic}
-            variant="contained"
-            startIcon={<PictureAsPdfIcon />}
-            onClick={() =>  generateQuizPDF(student.name, topic)}
-          >
-            {topic} Quiz
-          </Button>
-        ))}
-      </Box>
-    </Paper>
+      <h3>Generate Weekly Quiz</h3>
+      {student.topics.map(topic => (
+        <button key={topic} className="quiz-button" onClick={() => generateQuizPDF(student.name, topic)}>
+            Generate {topic} Quiz
+        </button>
+      ))}
+    </div>
   );
 };
 
